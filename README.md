@@ -8,8 +8,8 @@ installation:
 
 usage:
 
-`python target_practice.py ../src/`
+`python target_practice.py -e jsp,html ../src/`
 
 (watches the current working directory recursively, first arg is where to copy to)
 
-TODO: add ability to specify different extensions and the watcher directory
+TODO: add ability to specify watcher directory
