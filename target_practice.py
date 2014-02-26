@@ -21,7 +21,8 @@ class FsHandler(FileSystemEventHandler):
         dot_idx = event.src_path.rfind('.')
         if dot_idx == -1 or event.src_path[dot_idx:].lower() not in extensions:
             return
-        print("File modified: " + event.src_path)
+        basename = os.path.basename(event.src_path)
+        print("File modified: " + basename)
         rel_path = event.src_path[cwd_len:]
         new_path = os.path.join(abs_path, rel_path)
         if not os.path.isfile(new_path):
@@ -30,7 +31,9 @@ class FsHandler(FileSystemEventHandler):
 
         try:
             shutil.copyfile(event.src_path, new_path)
-            print("Successfully copied to: " + new_path)
+            localtime = time.localtime()
+            timestr = time.strftime("%Y/%m/%d %H:%M:%S", localtime)
+            print("Successfully copied %s on %s" % (basename, timestr))
         except Exception:
             sys.stderr.write("Failed to copy file.\n")
 
